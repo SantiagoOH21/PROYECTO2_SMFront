@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { login, reset } from "../../redux/auth/authslice";
+import { notification } from "antd";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -12,7 +14,21 @@ const Login = () => {
     }));
   };
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isError, isSuccess, message } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (isError) {
+      notification.error({ message: "Error", description: message });
+    }
+    if (isSuccess) {
+      notification.success({ message: "Success", description: message });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 2000);
+    }
+    dispatch(reset());
+  }, [isError, isSuccess, message]);
 
   const onSubmit = (e) => {
     e.preventDefault();

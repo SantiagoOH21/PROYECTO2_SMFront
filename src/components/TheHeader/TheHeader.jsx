@@ -1,6 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/auth/authSlice";
+import { logout } from "../../redux/auth/authslice.jsx";
+
+import Logo from "../Logo/Logo.jsx";
+
 const TheHeader = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -13,8 +16,15 @@ const TheHeader = () => {
   return (
     <nav>
       <h1>header</h1>
+      <Link to="/">
+        <Logo />
+      </Link>
       {user ? (
-        <button onClick={onLogout}>Logout</button>
+        <>
+          <button onClick={onLogout}>Logout</button>
+          <Link to="/">Home</Link>
+          <Link to="/profile">Profile | {user.username}</Link>
+        </>
       ) : (
         <>
           <Link to="/login">Login</Link>
