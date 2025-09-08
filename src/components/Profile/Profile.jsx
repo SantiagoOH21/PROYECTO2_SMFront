@@ -50,15 +50,21 @@ const Profile = () => {
           {posts.map((post) => (
             <li key={post._id}>
               <h2>{post.name}</h2>
-              <DeleteOutlined
-                onClick={() => {
-                  dispatch(deletePost(post._id));
-                  dispatch(fetchProfile());
-                }}
-              />
-              <EditOutlined onClick={() => showModal(post._id)} />
               <p>{post.text}</p>
               <small>{new Date(post.createdAt).toLocaleString()}</small>
+              <div>
+                <button>
+                  <DeleteOutlined
+                    onClick={() => {
+                      dispatch(deletePost(post._id));
+                      dispatch(fetchProfile());
+                    }}
+                  />
+                </button>
+                <button>
+                  <EditOutlined onClick={() => showModal(post._id)} />
+                </button>
+              </div>
             </li>
           ))}
         </ul>

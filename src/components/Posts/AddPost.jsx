@@ -7,7 +7,6 @@ const AddPost = () => {
   const { Option } = Select;
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
     dispatch(create(values));
   };
   return (
