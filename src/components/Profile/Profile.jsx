@@ -1,12 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile } from "../../redux/profileSlice";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { deletePost, getById } from "../../redux/posts/postsSlice";
 import AddPost from "../Posts/AddPost";
+import EditModal from "../Posts/EditModal";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { user, posts, followersCount, followingCount, loading, error } =
     useSelector((state) => state.profile);
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = (id) => {
+    dispatch(getById(id));
+    setIsModalVisible(true);
+  };
 
   useEffect(() => {
     dispatch(fetchProfile());
@@ -41,12 +50,20 @@ const Profile = () => {
           {posts.map((post) => (
             <li key={post._id}>
               <h2>{post.name}</h2>
+              <DeleteOutlined
+                onClick={() => {
+                  dispatch(deletePost(post._id));
+                  dispatch(fetchProfile());
+                }}
+              />
+              <EditOutlined onClick={() => showModal(post._id)} />
               <p>{post.text}</p>
               <small>{new Date(post.createdAt).toLocaleString()}</small>
             </li>
           ))}
         </ul>
       )}
+      <EditModal visible={isModalVisible} setVisible={setIsModalVisible} />
     </>
   );
 };
