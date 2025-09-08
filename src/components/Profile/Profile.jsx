@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProfile } from "../../redux/profileSlice";
+import AddPost from "../Posts/AddPost";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Profile = () => {
   return (
     <>
       <h1>Perfil de {user.name}</h1>
+      <AddPost />
       <img
         src={avatarUrl}
         alt={user.name}

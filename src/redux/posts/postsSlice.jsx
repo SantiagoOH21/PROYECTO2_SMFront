@@ -15,6 +15,14 @@ export const getAll = createAsyncThunk("posts/getAll", async () => {
   }
 });
 
+export const create = createAsyncThunk("posts/create", async (post) => {
+  try {
+    return await postsService.create(post);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 export const getById = createAsyncThunk("posts/getById", async (id) => {
   try {
     return await postsService.getById(id);
@@ -49,6 +57,9 @@ export const postsSlice = createSlice({
       })
       .addCase(getAll.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(create.fulfilled, (state, action) => {
+        state.posts = [...state.posts, action.payload];
       })
       .addCase(getById.fulfilled, (state, action) => {
         state.post = action.payload;
