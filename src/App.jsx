@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import TheHeader from "./components/TheHeader/TheHeader";
 import Home from "./components/Home/Home";
 import Profile from "./components/Profile/Profile";
+import PostDetail from "./components/Posts/PostDetail";
+import Search from "./components/Search/Search";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/search/:postName" element={<Search />} />
         </Routes>
       </Router>
     </div>

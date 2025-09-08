@@ -16,6 +16,16 @@ const login = async (userData) => {
   return res.data;
 };
 
+const getMe = async () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const res = await axios.get(`${API_URL}/users/me`, {
+    headers: {
+      authorization: token,
+    },
+  });
+  return res.data;
+};
+
 const logout = async () => {
   const token = JSON.parse(localStorage.getItem("token"));
   const res = await axios.delete(`${API_URL}/users/logout`, {
@@ -30,6 +40,7 @@ const logout = async () => {
 const authService = {
   register,
   login,
+  getMe,
   logout,
 };
 
