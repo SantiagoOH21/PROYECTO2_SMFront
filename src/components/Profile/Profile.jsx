@@ -5,6 +5,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { deletePost, getById } from "../../redux/posts/postsSlice";
 import AddPost from "../Posts/AddPost";
 import EditModal from "../Posts/EditModal";
+import PostCard from "../Posts/PostCard";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -46,12 +47,14 @@ const Profile = () => {
       {posts.length === 0 ? (
         <p>No hay publicaciones.</p>
       ) : (
-        <ul>
+        <div>
           {posts.map((post) => (
-            <li key={post._id}>
-              <h2>{post.name}</h2>
+            <div key={post._id}>
+              {/* <h2>{post.name}</h2>
               <p>{post.text}</p>
-              <small>{new Date(post.createdAt).toLocaleString()}</small>
+              <small>{new Date(post.createdAt).toLocaleString()}</small> */}
+              <PostCard post={post} showLink={false} showComments={true} />
+
               <div>
                 <button>
                   <DeleteOutlined
@@ -65,9 +68,9 @@ const Profile = () => {
                   <EditOutlined onClick={() => showModal(post._id)} />
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
       <EditModal visible={isModalVisible} setVisible={setIsModalVisible} />
     </>

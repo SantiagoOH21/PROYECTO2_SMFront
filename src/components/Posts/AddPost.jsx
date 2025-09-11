@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form, InputNumber, Select, Input } from "antd";
+import { Button, Form, Select, Input } from "antd";
 import { create } from "../../redux/posts/postsSlice";
+import { useState } from "react";
 
 const AddPost = () => {
   const dispatch = useDispatch();
+  const [imageFile, setImageFile] = useState(null);
   const { Option } = Select;
 
   const onFinish = (values) => {
@@ -12,20 +14,30 @@ const AddPost = () => {
   return (
     <>
       <h1>AddPost</h1>
-      <Form onFinish={onFinish}>
-        <Form.Item label="Post Name" name="name">
-          <Input placeholder="Post name" />
+      <Form onFinish={onFinish} layout="vertical">
+        <Form.Item
+          label="Nombre del Post"
+          name="name"
+          rules={[{ required: true, message: "Escribe el nombre del post" }]}
+        >
+          <Input placeholder="Ej.: Amanecer en Cancún" />
         </Form.Item>
-        <Form.Item label="Post Text" name="text">
-          <Input placeholder="Post text" />
+
+        <Form.Item
+          label="Descrpción"
+          name="text"
+          rules={[{ required: true, message: "Escribe el contenido del post" }]}
+        >
+          <Input.TextArea placeholder="Escribe aquí lo que desees" rows={4} />
         </Form.Item>
-        {/* <Form.Item name="GenreId" label="Select Genres">
-          <Select mode="multiple" placeholder="Please select genre">
-            <Option value="red">Red</Option>
-            <Option value="green">Green</Option>
-            <Option value="blue">Blue</Option>
-          </Select>
-        </Form.Item> */}
+
+        <Form.Item label="Imagen del post" name="image">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
+          />
+        </Form.Item>
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
