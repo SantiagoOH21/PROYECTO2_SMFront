@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, Form, InputNumber, Select, Input } from "antd";
+import { Button, Modal, Form, Select, Input } from "antd";
 import { useEffect } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { update } from "../../redux/posts/postsSlice";

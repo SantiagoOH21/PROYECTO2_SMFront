@@ -1,20 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form, Select, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { create } from "../../redux/posts/postsSlice";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const AddPost = () => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
   const [imageFile, setImageFile] = useState(null);
-  const { Option } = Select;
+  const fileInputRef = useRef(null);
 
   const onFinish = (values) => {
-    dispatch(create(values));
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("text", values.text);
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
+    dispatch(create(formData));
+
+    form.resetFields();
+    setImageFile(null);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
+    }
   };
+
   return (
     <>
       <h1>AddPost</h1>
-      <Form onFinish={onFinish} layout="vertical">
+      <Form onFinish={onFinish} layout="vertical" form={form}>
         <Form.Item
           label="Nombre del Post"
           name="name"
@@ -24,7 +40,7 @@ const AddPost = () => {
         </Form.Item>
 
         <Form.Item
-          label="Descrpción"
+          label="Descripción"
           name="text"
           rules={[{ required: true, message: "Escribe el contenido del post" }]}
         >
@@ -36,6 +52,7 @@ const AddPost = () => {
             type="file"
             accept="image/*"
             onChange={(e) => setImageFile(e.target.files[0])}
+            ref={fileInputRef}
           />
         </Form.Item>
 
