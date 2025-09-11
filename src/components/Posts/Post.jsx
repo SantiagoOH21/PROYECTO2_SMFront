@@ -22,8 +22,9 @@ const Post = () => {
           )}
 
           <div>
-            <h3>{post.userId.name}</h3>
-            <p>{post.text}</p>
+            <p>
+              <strong>{post.userId.name}:</strong> {post.text}
+            </p>
           </div>
           <small>{new Date(post.createdAt).toLocaleString()}</small>
 

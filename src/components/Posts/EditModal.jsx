@@ -8,15 +8,6 @@ const EditModal = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.posts);
   const { Option } = Select;
-  // const { genresList } = useSelector((state) => state.genres);
-
-  // const selectOption = genresList.map((genre) => {
-  //   return (
-  //     <Option key={genre.id} value={genre.id}>
-  //       {genre.name}
-  //     </Option>
-  //   );
-  // });
 
   const onFinish = (values) => {
     const postWithId = { ...values, id: post._id };
