@@ -53,13 +53,19 @@ export const deletePost = createAsyncThunk("posts/delete", async (id) => {
   }
 });
 
-export const update = createAsyncThunk("posts/update", async (post) => {
-  try {
-    return await postsService.update(post);
-  } catch (error) {
-    console.error(error);
+export const update = createAsyncThunk(
+  "posts/update",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const res = await postsService.update(id, data);
+      return res.post;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
   }
-});
+);
 
 export const postsSlice = createSlice({
   name: "posts",
@@ -105,13 +111,9 @@ export const postsSlice = createSlice({
         state.posts = state.posts.filter((post) => post._id !== action.payload);
       })
       .addCase(update.fulfilled, (state, action) => {
-        const posts = state.posts.map((post) => {
-          if (post.id === action.payload.post._id) {
-            post = action.payload;
-          }
-          return post;
-        });
-        state.posts = posts;
+        state.posts = state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        );
       });
   },
 });

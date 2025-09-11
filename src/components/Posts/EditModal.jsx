@@ -1,54 +1,82 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, Form, Select, Input } from "antd";
-import { useEffect } from "react";
+import { Button, Modal, Form, Input, message } from "antd";
+import { useEffect, useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { update } from "../../redux/posts/postsSlice";
+import { fetchProfile } from "../../redux/profileSlice";
 
 const EditModal = ({ visible, setVisible }) => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.posts);
-  const { Option } = Select;
-
-  const onFinish = (values) => {
-    const postWithId = { ...values, id: post._id };
-    dispatch(update(postWithId));
-    setVisible(false);
-  };
 
   const [form] = Form.useForm();
+  const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
-    const postToEdit = {
-      ...post,
-    };
-    form.setFieldsValue(postToEdit);
-  }, [post]);
+    if (post) {
+      form.setFieldsValue({
+        name: post.name,
+        text: post.text,
+      });
+      setImageFile(null);
+    }
+  }, [post, form]);
+
+  const onFinish = async (values) => {
+    const formData = new FormData();
+    formData.append("name", values.name);
+    formData.append("text", values.text);
+
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
+    try {
+      await dispatch(update({ id: post._id, data: formData })).unwrap();
+      await dispatch(fetchProfile());
+      message.success("Post actualizado correctamente");
+      setVisible(false);
+    } catch (err) {
+      message.error("Error al actualizar el post");
+    }
+  };
 
   return (
     <>
-      <Modal title="Edit Post" open={visible} footer={[]}>
-        <Form onFinish={onFinish} form={form}>
-          {/* <Form onFinish={onFinish}> */}
-          <Form.Item label="Post Name" name="name">
-            <Input placeholder="Post name" />
+      <Modal
+        title="Editar Post"
+        open={visible}
+        onCancel={() => setVisible(false)}
+        footer={null}
+      >
+        <Form onFinish={onFinish} form={form} layout="vertical">
+          <Form.Item
+            label="Nombre del Post"
+            name="name"
+            rules={[{ required: true }]}
+          >
+            <Input />
           </Form.Item>
-          <Form.Item label="Post Content" name="text">
-            <TextArea placeholder="Post content" />
+
+          <Form.Item
+            label="Descripción"
+            name="text"
+            rules={[{ required: true }]}
+          >
+            <TextArea rows={4} />
           </Form.Item>
-          {/* <Form.Item name="GenreId" label="Select Genres">
-            <Select mode="multiple" placeholder="Please select genre">
-              {selectOption}
-            </Select>
-          </Form.Item> */}
-          {/* <Form.Item label="Price">
-            <Form.Item name="price" noStyle>
-              <InputNumber />
-            </Form.Item>
-            <span className="ant-form-text"> €</span>
-          </Form.Item> */}
+
+          <Form.Item label="Cambiar Imagen">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+            />
+          </Form.Item>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Submit
+              Guardar Cambios
             </Button>
           </Form.Item>
         </Form>

@@ -50,9 +50,6 @@ const Profile = () => {
         <div>
           {posts.map((post) => (
             <div key={post._id}>
-              {/* <h2>{post.name}</h2>
-              <p>{post.text}</p>
-              <small>{new Date(post.createdAt).toLocaleString()}</small> */}
               <PostCard post={post} showLink={false} showComments={true} />
 
               <div>

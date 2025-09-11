@@ -58,7 +58,7 @@ const AddPost = () => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Añadir Post
           </Button>
         </Form.Item>
       </Form>

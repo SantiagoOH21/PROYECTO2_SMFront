@@ -39,19 +39,13 @@ const deletePost = async (id) => {
   return res.data;
 };
 
-const update = async (post) => {
+const update = async (id, data) => {
   const token = localStorage.getItem("token");
-  const updatedPost = {
-    name: post.name,
-    text: post.text,
-    // visibility: post.visibility,
-    // image: post.image,
-  };
-  console.log("Datos enviados a PUT:", updatedPost);
-  console.log("ID del post:", post.id);
-  const res = await axios.put(`${API_URL}/posts/${post.id}`, updatedPost, {
+
+  const res = await axios.put(`${API_URL}/posts/${id}`, data, {
     headers: {
       authorization: token,
+      "Content-Type": "multipart/form-data",
     },
   });
   return res.data;
