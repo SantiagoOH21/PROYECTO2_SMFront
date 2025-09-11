@@ -2,9 +2,10 @@ import axios from "axios";
 
 const API_URL = "http://localhost:3000";
 
-const getAll = async () => {
-  const res = await axios.get(`${API_URL}/posts`);
-  return res.data.posts;
+const getAll = async (page = 1) => {
+  const res = await axios.get(`${API_URL}/posts?page=${page}`);
+
+  return res.data;
 };
 
 const create = async (post) => {

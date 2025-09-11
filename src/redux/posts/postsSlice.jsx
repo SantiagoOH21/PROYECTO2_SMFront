@@ -5,11 +5,13 @@ const initialState = {
   posts: [],
   isLoading: false,
   post: {},
+  currentPage: 1,
+  totalPages: 1,
 };
 
-export const getAll = createAsyncThunk("posts/getAll", async () => {
+export const getAll = createAsyncThunk("posts/getAll", async (page = 1) => {
   try {
-    return await postsService.getAll();
+    return await postsService.getAll(page);
   } catch (error) {
     console.error(error);
   }
@@ -70,7 +72,22 @@ export const postsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAll.fulfilled, (state, action) => {
-        state.posts = action.payload;
+        if (!action.payload) {
+          state.isLoading = false;
+          return;
+        }
+
+        const { posts, currentPage, totalPages } = action.payload;
+
+        if (currentPage > 1) {
+          state.posts = [...state.posts, ...posts];
+        } else {
+          state.posts = posts;
+        }
+
+        state.currentPage = currentPage;
+        state.totalPages = totalPages;
+        state.isLoading = false;
       })
       .addCase(getAll.pending, (state) => {
         state.isLoading = true;

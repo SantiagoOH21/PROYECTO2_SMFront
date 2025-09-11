@@ -15,13 +15,30 @@ const PostDetail = () => {
     <>
       <h1>PostDetail</h1>
       <h2>{post.name}</h2>
+      {post.image && (
+        <img
+          src={`http://localhost:3000/uploads/${post.image}`}
+          alt={post.name}
+          width="300px"
+        />
+      )}
       <h3>{post.userId?.name}</h3>
       <p>{post.text}</p>
-      <img
-        src={`http://localhost:3000/${post.image}`}
-        alt={`Imagen del post ${post.name}`}
-        width="300px"
-      />
+      <small>{new Date(post.createdAt).toLocaleString()}</small>
+
+      {post.comments && post.comments.length > 0 && (
+        <div className="comments">
+          <h4>Comentarios:</h4>
+          {post.comments.map((comment) => (
+            <div key={comment._id} className="comment">
+              <p>
+                <strong>{comment.userId.name}:</strong> {comment.content}
+              </p>
+              <small>{new Date(comment.createdAt).toLocaleString()}</small>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };
