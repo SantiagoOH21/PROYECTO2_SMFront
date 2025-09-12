@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../../redux/auth/authslice";
+import { useNavigate } from "react-router-dom";
 
 import { notification } from "antd";
 import "../../assets/styles/views/register.scss";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
