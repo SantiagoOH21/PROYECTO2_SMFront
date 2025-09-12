@@ -2,7 +2,7 @@
 
 **Elephant** es una red social desarrollada con **React, Redux y SASS** que permite a los usuarios registrarse, iniciar sesión, publicar contenido, interactuar con otros mediante likes y comentarios, y gestionar su propio perfil.
 
-Este proyecto está construido sobre la **API del backend** desarrollada en el segundo proyecto (repositorio aquí 👉 [https://github.com/SantiagoOH21/PROYECTO2_SocialMedia](#)), integrando todo lo aprendido hasta ahora en frontend y buenas prácticas de desarrollo.
+Este proyecto está construido sobre la **API del backend** desarrollada en un proyecto anterior ([https://github.com/SantiagoOH21/PROYECTO2_SocialMedia](#)), integrando todo lo aprendido hasta ahora en frontend y buenas prácticas de desarrollo.
 
 ---
 
