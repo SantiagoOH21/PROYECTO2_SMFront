@@ -4,6 +4,7 @@ import { logout } from "../../redux/auth/authslice.jsx";
 import { useState } from "react";
 
 import Logo from "../Logo/Logo.jsx";
+import "../../assets/styles/components/header.scss";
 
 const TheHeader = () => {
   const navigate = useNavigate();
@@ -26,24 +27,36 @@ const TheHeader = () => {
   };
   return (
     <nav>
-      <h1>header</h1>
       <Link to="/">
         <Logo />
       </Link>
-      <Link to="/">Home</Link>
-      <input onKeyUp={handleChange} placeholder="search post" name="text" />
 
-      {user ? (
-        <>
-          <button onClick={onLogout}>Logout</button>
-          <Link to="/profile">Profile | {user.username}</Link>
-        </>
-      ) : (
-        <>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </>
-      )}
+      <input
+        onKeyUp={handleChange}
+        placeholder="Busca post por título"
+        name="text"
+      />
+
+      <div className="nav-actions">
+        <Link to="/">Home</Link>
+
+        {user ? (
+          <>
+            <Link to="/profile" className="profile-link">
+              Perfil
+            </Link>
+            <button onClick={onLogout} className="logout-btn">
+              Salir
+            </button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="login-link">
+              Iniciar sesión
+            </Link>
+          </>
+        )}
+      </div>
     </nav>
   );
 };

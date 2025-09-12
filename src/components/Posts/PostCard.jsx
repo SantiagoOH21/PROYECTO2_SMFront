@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../../assets/styles/components/postCard.scss";
 
 const PostCard = ({ post, showLink = true, showComments = true }) => {
   return (

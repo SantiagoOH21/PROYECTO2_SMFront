@@ -44,7 +44,6 @@ const Posts = () => {
 
   return (
     <>
-      <h1>Posts</h1>
       <Post />
       {isLoading && <p>Cargando más posts...</p>}
     </>

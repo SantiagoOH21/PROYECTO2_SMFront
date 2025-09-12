@@ -20,8 +20,6 @@ const PostDetail = () => {
 
   return (
     <>
-      <h1>PostDetail</h1>
-
       {post && <PostCard post={post} showLink={false} />}
       <hr />
       <AddComment postId={id} onCommentAdded={refreshPost} />

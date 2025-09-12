@@ -6,6 +6,7 @@ import { deletePost, getById } from "../../redux/posts/postsSlice";
 import AddPost from "../Posts/AddPost";
 import EditModal from "../Posts/EditModal";
 import PostCard from "../Posts/PostCard";
+import "../../assets/styles/views/profile.scss";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -31,47 +32,60 @@ const Profile = () => {
     : "/default-avatar.png";
 
   return (
-    <>
+    <div className="profile-container">
       <h1>Perfil de {user.name}</h1>
-      <AddPost />
-      <img
-        src={avatarUrl}
-        alt={user.name}
-        style={{ width: "200px", height: "auto", borderRadius: "50%" }}
-      />
-      <p>Email: {user.email}</p>
-      <p>Seguidores: {followersCount}</p>
-      <p>Siguiendo: {followingCount}</p>
 
-      <h2>Publicaciones</h2>
-      {posts.length === 0 ? (
-        <p>No hay publicaciones.</p>
-      ) : (
-        <div>
-          {posts.map((post) => (
-            <div key={post._id}>
+      <div className="profile-header">
+        <img src={avatarUrl} alt={user.name} className="profile-avatar" />
+
+        <div className="profile-info">
+          <p>Correo electrónico: {user.email}</p>
+        </div>
+
+        <div className="stats">
+          <div className="stat">
+            Seguidores <span>{followersCount}</span>
+          </div>
+          <div className="stat">
+            Siguiendo <span>{followingCount}</span>
+          </div>
+        </div>
+      </div>
+
+      <AddPost />
+      <div className="posts-section">
+        <h2>Publicaciones</h2>
+        {posts.length === 0 ? (
+          <p>No hay publicaciones.</p>
+        ) : (
+          posts.map((post) => (
+            <div key={post._id} className="post-card">
               <PostCard post={post} showLink={false} showComments={true} />
 
-              <div>
-                <button>
-                  <DeleteOutlined
-                    onClick={() => {
-                      dispatch(deletePost(post._id));
-                      dispatch(fetchProfile());
-                    }}
-                  />
+              <div className="post-actions">
+                <button
+                  className="delete-btn"
+                  onClick={() => {
+                    dispatch(deletePost(post._id));
+                    dispatch(fetchProfile());
+                  }}
+                >
+                  <DeleteOutlined />
                 </button>
-                <button>
-                  <EditOutlined onClick={() => showModal(post._id)} />
+                <button
+                  className="edit-btn"
+                  onClick={() => showModal(post._id)}
+                >
+                  <EditOutlined />
                 </button>
               </div>
             </div>
-          ))}
-        </div>
-      )}
+          ))
+        )}
+      </div>
+
       <EditModal visible={isModalVisible} setVisible={setIsModalVisible} />
-    </>
+    </div>
   );
 };
-
 export default Profile;

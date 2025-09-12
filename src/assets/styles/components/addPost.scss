@@ -1,0 +1,109 @@
+.add-post-container {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  margin: 1.5rem 0;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: var(--color-link);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    label {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+
+      &:focus {
+        border-color: var(--color-link);
+        outline: none;
+        box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+      }
+    }
+
+    textarea {
+      resize: none;
+      line-height: 1.5;
+    }
+
+    input[type="file"] {
+      background: #f9f9f9;
+      cursor: pointer;
+
+      &::-webkit-file-upload-button {
+        background: var(--color-accent);
+        border: none;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: var(--color-accent-hover);
+        }
+      }
+    }
+
+    button {
+      align-self: flex-end;
+      padding: 0.8rem 1.5rem;
+      background-color: var(--color-login);
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-login-hover);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/* Mobile-first */
+@media (max-width: 480px) {
+  .add-post-container {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    input,
+    textarea,
+    button {
+      font-size: 0.95rem;
+      padding: 0.7rem;
+    }
+  }
+}

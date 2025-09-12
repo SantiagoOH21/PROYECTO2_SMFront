@@ -1,8 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, reset } from "../../redux/auth/authslice";
 import { notification } from "antd";
+import "../../assets/styles/views/login.scss";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -32,27 +33,44 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // console.log("formData", formData);
     dispatch(login(formData));
   };
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="email"
-        name="email"
-        value={email}
-        placeholder="email"
-        onChange={onChange}
-      />
-      <input
-        type="password"
-        name="password"
-        value={password}
-        placeholder="Password"
-        onChange={onChange}
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-container">
+      <form onSubmit={onSubmit} className="login-form">
+        <h2>Iniciar Sesión</h2>
+
+        <label>
+          Correo electrónico:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            placeholder="email"
+            onChange={onChange}
+            required
+          />
+        </label>
+
+        <label>
+          Contraseña:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            placeholder="Password"
+            onChange={onChange}
+            required
+          />
+        </label>
+
+        <button type="submit">Entrar</button>
+
+        <p className="register-link">
+          ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
+        </p>
+      </form>
+    </div>
   );
 };
 export default Login;

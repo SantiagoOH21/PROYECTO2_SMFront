@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../../redux/auth/authslice";
 
 import { notification } from "antd";
+import "../../assets/styles/views/register.scss";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -69,61 +70,86 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={onSubmit} encType="multipart/form-data">
-      <input
-        type="text"
-        name="name"
-        value={name}
-        onChange={onChange}
-        placeholder="Name"
-        required
-      />
+    <div className="register-container">
+      <form
+        className="register-form"
+        onSubmit={onSubmit}
+        encType="multipart/form-data"
+      >
+        <h2>Registro</h2>
 
-      <input
-        type="email"
-        name="email"
-        value={email}
-        onChange={onChange}
-        placeholder="Email"
-        required
-      />
+        <label>
+          Usuario:
+          <input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onChange}
+            placeholder="Ej.: Jon"
+            required
+          />
+        </label>
 
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={onChange}
-        placeholder="Password"
-        required
-      />
+        <label>
+          Correo electrónico:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={onChange}
+            placeholder="Ej.: jon@mail.com"
+            required
+          />
+        </label>
 
-      <input
-        type="password"
-        name="password2"
-        value={password2}
-        onChange={onChange}
-        placeholder="Confirm Password"
-        required
-      />
+        <label>
+          Contraseña:
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChange}
+            placeholder="Contraseña"
+            required
+          />
+        </label>
 
-      <input
-        type="number"
-        name="age"
-        value={age}
-        onChange={onChange}
-        placeholder="Age"
-        required
-      />
+        <label>
+          Repita la contraseña:
+          <input
+            type="password"
+            name="password2"
+            value={password2}
+            onChange={onChange}
+            placeholder="Repita contraseña"
+            required
+          />
+        </label>
 
-      <input
-        type="file"
-        name="avatar"
-        accept="image/*"
-        onChange={onFileChange}
-      />
+        <label>
+          Edad:
+          <input
+            type="number"
+            name="age"
+            value={age}
+            onChange={onChange}
+            required
+          />
+        </label>
 
-      <button type="submit">Register</button>
-    </form>
+        <label>
+          Imagen de perfil (opcional):
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            onChange={onFileChange}
+          />
+        </label>
+
+        <button type="submit">Registrarse</button>
+      </form>
+    </div>
   );
 };
 

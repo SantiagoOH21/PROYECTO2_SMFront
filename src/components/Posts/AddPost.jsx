@@ -28,8 +28,8 @@ const AddPost = () => {
   };
 
   return (
-    <>
-      <h1>AddPost</h1>
+    <div className="add-post-container">
+      <h2>Crear nuevo post</h2>
       <Form onFinish={onFinish} layout="vertical" form={form}>
         <Form.Item
           label="Nombre del Post"
@@ -62,7 +62,7 @@ const AddPost = () => {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 };
 

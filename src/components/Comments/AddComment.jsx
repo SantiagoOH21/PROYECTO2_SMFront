@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createComment } from "../../redux/comments/commentSlice";
+import "../../assets/styles/components/addComment.scss";
 
 const AddComment = ({ postId, onCommentAdded }) => {
   const [content, setContent] = useState("");
@@ -30,12 +31,10 @@ const AddComment = ({ postId, onCommentAdded }) => {
   };
 
   return (
-    <>
-      <h1>AddComment</h1>
-
+    <div className="add-comment-container">
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <h4>Agregar comentario</h4>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
 
         <textarea
           value={content}
@@ -44,16 +43,18 @@ const AddComment = ({ postId, onCommentAdded }) => {
           rows={4}
           required
         />
+
         <input
           type="file"
           accept="image/*"
           onChange={(e) => setImage(e.target.files[0])}
         />
+
         <button type="submit" disabled={isLoading}>
           {isLoading ? "Enviando..." : "Enviar comentario"}
         </button>
       </form>
-    </>
+    </div>
   );
 };
 

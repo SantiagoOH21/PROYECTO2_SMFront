@@ -6,7 +6,6 @@ const Post = () => {
 
   return (
     <>
-      <h1>Post</h1>
       {posts.map((post, index) => (
         <PostCard key={post._id} post={post} />
       ))}
